@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Tarama Ayarları - NetScan Dashboard{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <h1 class="mb-4">Ağ Tarama Ayarları</h1>
+    <form method="POST" action="{{ url_for('index') }}">
+        <div class="form-group">
+            <label for="ip_range">IP Aralığı:</label>
+            <input type="text" class="form-control" name="ip_range" id="ip_range" value="192.168.1.0/24" required>
+        </div>
+        <div class="form-group">
+            <label for="ports">Port Aralığı (örn. 1-1024):</label>
+            <input type="text" class="form-control" name="ports" id="ports" value="1-1024" required>
+        </div>
+        <div class="form-group">
+            <label for="timeout">Timeout (saniye):</label>
+            <input type="number" class="form-control" name="timeout" id="timeout" value="5" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Tarama Yap</button>
+    </form>
+</div>
+{% endblock %}

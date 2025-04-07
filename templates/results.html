@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Tarama Sonuçları - NetScan Dashboard{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <h1 class="mb-4">Tarama Sonuçları</h1>
+    <p>
+        <strong>IP Aralığı:</strong> {{ ip_range }} |
+        <strong>Port Aralığı:</strong> {{ ports }} |
+        <strong>Timeout:</strong> {{ timeout }} saniye
+    </p>
+    {% if devices %}
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>IP</th>
+                        <th>Hostname</th>
+                        <th>Açık Port Sayısı</th>
+                        <th>Açık Portlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for device in devices %}
+                    <tr>
+                        <td>{{ device["IP"] }}</td>
+                        <td>{{ device["Hostname"] }}</td>
+                        <td>{{ device["Açık Port Sayısı"] }}</td>
+                        <td>{{ device["Açık Portlar"] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <h3 class="mt-4">Grafik: Açık Port Sayısı Dağılımı</h3>
+        <div class="mb-4">
+            {{ graph_html | safe }}
+        </div>
+        <a href="{{ url_for('download_csv', ip_range=ip_range, ports=ports, timeout=timeout) }}" class="btn btn-success">
+            Sonuçları CSV Olarak İndir
+        </a>
+    {% else %}
+        <div class="alert alert-warning">Hiçbir cihaz bulunamadı.</div>
+    {% endif %}
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Yeni Tarama Yap</a>
+</div>
+{% endblock %}
